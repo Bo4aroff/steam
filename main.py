@@ -17,19 +17,19 @@ def generate_excel_download_link(df_2):
 
 
 st.set_page_config(page_title='Search_words')
-st.title('Excel Plotter')
+st.title('ПОИСКОВИК XLS')
 st.subheader('Перенесите свой Excel файл')
 
 uploaded_file = st.file_uploader('ВЫБИРИТЕ СВОЙ ФАЙЛ', type='xlsx')
 if uploaded_file:
     st.markdown('---')
     df = pd.read_excel(uploaded_file, engine='openpyxl')
-    df['История заболевания'] = df['История заболевания'].astype(str)
     st.dataframe(df)
 
 
 
-with st.form('Search'):
+with st.form('Search_words'):
+    keyword_one = st.text_input('Колонка для поиска')
     keyword_ = st.text_input('Введите слово')
     keyword_two = st.text_input('Введите слово 2')
     keyword_three = st.text_input('Введите слово 3')
@@ -45,10 +45,12 @@ with st.form('Search'):
         step_one = [keyword_]
         step_two = [keyword_two]
         step_three = [keyword_three]
+        df[keyword_one] = df[keyword_one].astype(str)
+        df[keyword_one] = df[keyword_one].str.lower()
 
-        df['Введеное слово'] = df['История заболевания'].apply(lambda x: identify_subject(x, step_one))
-        df['Введеное слово 2'] = df['История заболевания'].apply(lambda x: identify_subject(x, step_two))
-        df['Введеное слово 3'] = df['История заболевания'].apply(lambda x: identify_subject(x, step_three))
+        df['Введеное слово'] = df[keyword_one].apply(lambda x: identify_subject(x, step_one))
+        df['Введеное слово 2'] = df[keyword_one].apply(lambda x: identify_subject(x, step_two))
+        df['Введеное слово 3'] = df[keyword_one].apply(lambda x: identify_subject(x, step_three))
 
 
 df_2 = st.dataframe(df)
