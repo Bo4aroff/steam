@@ -52,8 +52,10 @@ with st.form('Search_words'):
         df['Введеное слово 2'] = df[keyword_one].apply(lambda x: identify_subject(x, step_two))
         df['Введеное слово 3'] = df[keyword_one].apply(lambda x: identify_subject(x, step_three))
 
+if st.checkbox('Предпросмотр'):
 
-df_2 = st.dataframe(df)
+    df_2 = st.dataframe(df)
+if st.checkbox('Показать файл для скачивания'):
 
-st.subheader('СКАЧАТЬ ФАЙЛ')
-generate_excel_download_link(df_2)
+    st.subheader('СКАЧАТЬ ФАЙЛ')
+    generate_excel_download_link(df_2)
