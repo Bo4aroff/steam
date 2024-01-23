@@ -1,3 +1,6 @@
 pandas==1.5.2
 streamlit==1.15.2
 openpyxl==3.0.10
+uuid==1.30
+numpy==1.21.6
+altair==4.0
